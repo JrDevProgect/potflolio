@@ -15,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "your_secure_password";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "seanwillbert";
 
 const ADMIN_HASH = crypto
   .createHash("sha256")
@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || "fallback_secret",
+    secret: process.env.SESSION_SECRET || "seanwillbert",
     resave: false,
     saveUninitialized: false,
     cookie: {
