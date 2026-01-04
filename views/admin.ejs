@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Admin Panel - <%= config.clientName %>" />
+    <meta name="theme-color" content="#4361ee" />
+    <title>Admin Panel - <%= config.clientName %></title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4cc9f0;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --success-color: #4ade80;
+        --border-radius: 15px;
+        --shadow: 0 0.3125rem 1.25rem rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 0.9375rem 1.875rem rgba(0, 0, 0, 0.15);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--light-color);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 1rem;
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5rem;
+        height: 0.25rem;
+        background: var(--accent-color);
+        border-radius: 0.125rem;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-brand,
+      .nav-link {
+        font-weight: 500;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        transition: var(--transition);
+      }
+
+      .nav-link:hover {
+        color: white !important;
+      }
+
+      .admin-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 2.5rem;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        margin: 0 auto 2.5rem;
+      }
+
+      .admin-card:hover {
+        transform: translateY(-0.3125rem);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .form-control,
+      .form-select,
+      textarea {
+        border: 0.125rem solid #e9ecef;
+        border-radius: var(--border-radius);
+        padding: 0.75rem 0.9375rem;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .form-control:focus,
+      .form-select:focus,
+      textarea:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+        outline: 0;
+      }
+
+      .btn-admin {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        border: none;
+        padding: 0.75rem 1.875rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .btn-admin:hover {
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        padding: 0.75rem 1.25rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .btn-secondary:hover {
+        transform: translateY(-0.125rem);
+        box-shadow: 0 0.375rem 1.25rem rgba(0, 0, 0, 0.2);
+      }
+
+      .admin-icon {
+        width: 4.375rem;
+        height: 4.375rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        color: white;
+        font-size: 1.75rem;
+      }
+
+      .proof-item-card,
+      .facebook-post-card {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.25rem;
+        box-shadow: var(--shadow);
+        margin-bottom: 0.9375rem;
+        border-left: 0.25rem solid var(--primary-color);
+        position: relative;
+      }
+
+      .facebook-post-card {
+        border-left: 0.25rem solid var(--accent-color);
+      }
+
+      .edit-form {
+        display: none;
+      }
+
+      .footer {
+        background: var(--dark-color);
+        color: white;
+        padding: 2.5rem 0;
+        text-align: center;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.3125rem;
+        justify-content: flex-end;
+        margin-top: 0.625rem;
+      }
+
+      .action-btn {
+        padding: 0.375rem 0.625rem;
+        font-size: 0.85rem;
+        border-radius: 0.3125rem;
+      }
+
+      @media (max-width: 768px) {
+        .admin-card {
+          padding: 1.875rem;
+        }
+        .section-title h2 {
+          font-size: 2rem;
+        }
+        .section {
+          padding: 3rem 0;
+        }
+        .admin-icon {
+          width: 3.75rem;
+          height: 3.75rem;
+          font-size: 1.5rem;
+        }
+        .proof-item-card,
+        .facebook-post-card {
+          padding: 0.9375rem;
+        }
+        .btn-admin {
+          padding: 0.625rem 1.25rem;
+          font-size: 0.9rem;
+        }
+        .form-control,
+        .form-select,
+        textarea {
+          padding: 0.625rem 0.75rem;
+          font-size: 0.9rem;
+        }
+        .action-buttons {
+          flex-direction: column;
+          gap: 0.3125rem;
+          align-items: stretch;
+        }
+        .action-btn {
+          padding: 0.5rem;
+          font-size: 0.8rem;
+        }
+        .post-content,
+        .proof-content {
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .section {
+          padding: 2rem 0;
+        }
+        .section-title {
+          margin-bottom: 1.875rem;
+        }
+        .admin-card {
+          padding: 1.25rem;
+        }
+        .section-title h2 {
+          font-size: 1.8rem;
+        }
+        .btn-admin {
+          padding: 0.5rem 0.9375rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      .url-display {
+        word-break: break-all;
+        overflow-wrap: break-word;
+        font-family: monospace;
+        font-size: 0.9rem;
+        padding: 0.5rem;
+        background: #f8f9fa;
+        border: 0.0625rem solid #dee2e6;
+        border-radius: 0.3125rem;
+        margin: 0.3125rem 0;
+      }
+
+      .url-display a {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      .url-display a:hover {
+        color: var(--secondary-color);
+      }
+
+      .image-preview {
+        max-width: 100%;
+        max-height: 150px;
+        margin-top: 0.625rem;
+        border-radius: 0.3125rem;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/"
+          ><i class="fas fa-cog me-2"></i>Admin Panel</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/"
+                ><i class="fas fa-home me-1"></i>Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#admin"
+                ><i class="fas fa-user-cog me-1"></i>Settings</a
+              >
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <form method="POST" action="/admin/logout" class="m-0">
+                <button type="submit" class="nav-link btn btn-link">
+                  <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="admin" class="section">
+        <div class="container">
+          <div class="section-title">
+            <div class="admin-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <h2>Admin Panel</h2>
+            <p>Manage your website configuration</p>
+          </div>
+
+          <div class="admin-card">
+            <h3 class="mb-4">Basic Configuration</h3>
+            <form id="configForm">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="clientName" class="form-label"
+                      >Client Name</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="clientName"
+                      name="clientName"
+                      value="<%= config.clientName %>"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="contactEmail" class="form-label"
+                      >Contact Email</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="contactEmail"
+                      name="contactEmail"
+                      value="<%= config.contactEmail %>"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="mb-3">
+                    <label for="facebookLink" class="form-label"
+                      >Facebook Link</label
+                    >
+                    <input
+                      type="url"
+                      class="form-control"
+                      id="facebookLink"
+                      name="facebookLink"
+                      value="<%= config.facebookLink %>"
+                    />
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <button type="submit" class="btn-admin">
+                    <i class="fas fa-save me-2"></i>Save Basic Configuration
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <h3 class="mb-4">Facebook Posts Management</h3>
+
+            <div class="row g-4">
+              <div class="col-md-8">
+                <div class="mb-3">
+                  <label for="newFacebookPost" class="form-label"
+                    >Add New Facebook Post URL</label
+                  >
+                  <input
+                    type="url"
+                    class="form-control"
+                    id="newFacebookPost"
+                    placeholder="https://www.facebook.com/.../posts/..."
+                  />
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="mb-3">
+                  <label class="form-label">&nbsp;</label>
+                  <button
+                    type="button"
+                    class="btn-admin w-100"
+                    id="addFacebookPostBtn"
+                  >
+                    <i class="fas fa-plus me-2"></i>Add Post
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div id="facebookPostsList">
+              <h5 class="mt-4 mb-3">Current Facebook Posts:</h5>
+              <% if (config.facebookPosts.length === 0) { %>
+              <p class="text-muted">No Facebook posts added yet.</p>
+              <% } else { %> <% config.facebookPosts.forEach((post, index) => {
+              %>
+              <div class="facebook-post-card" id="facebook-post-<%= index %>">
+                <div class="d-flex flex-column">
+                  <div class="flex-grow-1">
+                    <form
+                      class="edit-facebook-form"
+                      style="display: none"
+                      id="edit-facebook-form-<%= index %>"
+                    >
+                      <div class="mb-2">
+                        <input
+                          type="url"
+                          class="form-control"
+                          name="postUrl"
+                          value="<%= post %>"
+                          required
+                        />
+                      </div>
+                      <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-sm btn-success">
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary"
+                          onclick="cancelEditFacebook(<%= index %>)"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                    <div class="post-content" id="post-content-<%= index %>">
+                      <div class="url-display">
+                        <a
+                          href="<%= post %>"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <%= post %>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="action-buttons">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-warning action-btn"
+                      onclick="editFacebookPost(<%= index %>)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger action-btn"
+                      onclick="deleteFacebookPost(<%= index %>)"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <% }); %> <% } %>
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <h3 class="mb-4">Proof of Legitimacy Management</h3>
+
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="newProofImage" class="form-label"
+                    >Upload Proof Image</label
+                  >
+                  <input
+                    type="file"
+                    class="form-control"
+                    id="newProofImage"
+                    name="image"
+                    accept="image/*"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="mb-3">
+                  <label for="newProofTitle" class="form-label">Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="newProofTitle"
+                    name="title"
+                    placeholder="Project Title"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="mb-3">
+                  <label for="newProofTestimonial" class="form-label"
+                    >Testimonial</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="newProofTestimonial"
+                    name="testimonial"
+                    rows="3"
+                    placeholder="Client testimonial or description..."
+                    required
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-12">
+                <button
+                  type="button"
+                  class="btn-admin w-100"
+                  id="addProofItemBtn"
+                >
+                  <i class="fas fa-plus me-2"></i>Add Proof Item
+                </button>
+              </div>
+            </div>
+
+            <div id="proofItemsList">
+              <h5 class="mt-4 mb-3">Current Proof Items:</h5>
+              <% if (config.proofItems.length === 0) { %>
+              <p class="text-muted">No proof items added yet.</p>
+              <% } else { %> <% config.proofItems.forEach((item, index) => { %>
+              <div class="proof-item-card" id="proof-item-<%= index %>">
+                <div class="d-flex flex-column">
+                  <div class="flex-grow-1">
+                    <form
+                      class="edit-proof-form"
+                      style="display: none"
+                      id="edit-proof-form-<%= index %>"
+                      enctype="multipart/form-data"
+                    >
+                      <div class="mb-2">
+                        <label for="edit-image-<%= index %>" class="form-label"
+                          >Upload New Image (optional)</label
+                        >
+                        <input
+                          type="file"
+                          class="form-control mb-2"
+                          id="edit-image-<%= index %>"
+                          name="image"
+                          accept="image/*"
+                        />
+                        <input
+                          type="hidden"
+                          name="oldImage"
+                          value="<%= item.image %>"
+                        />
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          name="title"
+                          placeholder="Title"
+                          value="<%= item.title %>"
+                          required
+                        />
+                        <textarea
+                          class="form-control"
+                          name="testimonial"
+                          rows="2"
+                          placeholder="Testimonial"
+                          required
+                        >
+<%= item.testimonial %></textarea
+                        >
+                      </div>
+                      <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-sm btn-success">
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-secondary"
+                          onclick="cancelEditProof(<%= index %>)"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                    <div class="proof-content" id="proof-content-<%= index %>">
+                      <img
+                        src="<%= item.image %>"
+                        alt="<%= item.title %>"
+                        class="img-fluid mb-2 rounded"
+                        style="max-height: 150px"
+                      />
+                      <h6><%= item.title %></h6>
+                      <p class="text-muted small"><%= item.testimonial %></p>
+                    </div>
+                  </div>
+                  <div class="action-buttons">
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-warning action-btn"
+                      onclick="editProofItem(<%= index %>)"
+                    >
+                      <i class="fas fa-edit"></i>
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-danger action-btn"
+                      onclick="deleteProofItem(<%= index %>)"
+                    >
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <% }); %> <% } %>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p id="footerText">
+          &copy; 2026 <%= config.clientName %>. All rights reserved.
+        </p>
+        <p class="mt-2">Professional Mobile Device Services</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document
+        .getElementById("configForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+          const config = {
+            clientName: formData.get("clientName"),
+            facebookLink: formData.get("facebookLink"),
+            contactEmail: formData.get("contactEmail"),
+            facebookPosts: [],
+            proofItems: [],
+          };
+
+          try {
+            const response = await fetch("/api/admin/config", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(config),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              showMessage("Configuration saved successfully!", "success");
+            } else {
+              showMessage(
+                result.error || "Failed to save configuration",
+                "danger"
+              );
+            }
+          } catch (error) {
+            showMessage("Error saving configuration", "danger");
+          }
+        });
+
+      document
+        .getElementById("addFacebookPostBtn")
+        .addEventListener("click", async () => {
+          const postUrl = document
+            .getElementById("newFacebookPost")
+            .value.trim();
+          if (!postUrl) {
+            showMessage("Please enter a Facebook post URL", "warning");
+            return;
+          }
+
+          try {
+            const response = await fetch("/api/admin/add-facebook-post", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ postUrl }),
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              document.getElementById("newFacebookPost").value = "";
+              location.reload();
+            } else {
+              showMessage(
+                result.error || "Failed to add Facebook post",
+                "danger"
+              );
+            }
+          } catch (error) {
+            showMessage("Error adding Facebook post", "danger");
+          }
+        });
+
+      document
+        .getElementById("addProofItemBtn")
+        .addEventListener("click", async () => {
+          const imageFile = document.getElementById("newProofImage").files[0];
+          const title = document.getElementById("newProofTitle").value.trim();
+          const testimonial = document
+            .getElementById("newProofTestimonial")
+            .value.trim();
+
+          if (!imageFile || !title || !testimonial) {
+            showMessage(
+              "Please fill in all fields for the proof item, including the image.",
+              "warning"
+            );
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append("image", imageFile);
+          formData.append("title", title);
+          formData.append("testimonial", testimonial);
+
+          try {
+            const response = await fetch("/api/admin/add-proof-item", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              document.getElementById("newProofImage").value = "";
+              document.getElementById("newProofTitle").value = "";
+              document.getElementById("newProofTestimonial").value = "";
+              location.reload();
+            } else {
+              showMessage(result.error || "Failed to add proof item", "danger");
+            }
+          } catch (error) {
+            showMessage("Error adding proof item", "danger");
+          }
+        });
+
+      const editProofItem = (index) => {
+        document.getElementById(`proof-content-${index}`).style.display =
+          "none";
+        document.getElementById(`edit-proof-form-${index}`).style.display =
+          "block";
+
+        document.getElementById(`edit-proof-form-${index}`).onsubmit = async (
+          e
+        ) => {
+          e.preventDefault();
+          const formData = new FormData(e.target);
+
+          try {
+            const response = await fetch("/api/admin/update-proof-item", {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+              location.reload();
+            } else {
+              showMessage(
+                result.error || "Failed to update proof item",
+                "danger"
+              );
+            }
+          } catch (error) {
+            showMessage("Error updating proof item", "danger");
+          }
+        };
+      };
+
+      const cancelEditProof = (index) => {
+        document.getElementById(`proof-content-${index}`).style.display =
+          "block";
+        document.getElementById(`edit-proof-form-${index}`).style.display =
+          "none";
+      };
+
+      const deleteProofItem = (index) => {
+        if (confirm("Are you sure you want to remove this proof item?")) {
+          fetch(`/api/admin/delete-proof-item/${index}`, {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.success) {
+                location.reload();
+              } else {
+                showMessage(
+                  result.error || "Failed to delete proof item",
+                  "danger"
+                );
+              }
+            })
+            .catch((error) => {
+              showMessage("Error deleting proof item", "danger");
+            });
+        }
+      };
+
+      const editFacebookPost = (index) => {
+        document.getElementById(`post-content-${index}`).style.display = "none";
+        document.getElementById(`edit-facebook-form-${index}`).style.display =
+          "block";
+
+        document.getElementById(`edit-facebook-form-${index}`).onsubmit =
+          async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const postUrl = formData.get("postUrl");
+
+            try {
+              const response = await fetch("/api/admin/update-facebook-post", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ index, postUrl }),
+              });
+
+              const result = await response.json();
+              if (response.ok) {
+                location.reload();
+              } else {
+                showMessage(
+                  result.error || "Failed to update Facebook post",
+                  "danger"
+                );
+              }
+            } catch (error) {
+              showMessage("Error updating Facebook post", "danger");
+            }
+          };
+      };
+
+      const cancelEditFacebook = (index) => {
+        document.getElementById(`post-content-${index}`).style.display =
+          "block";
+        document.getElementById(`edit-facebook-form-${index}`).style.display =
+          "none";
+      };
+
+      const deleteFacebookPost = (index) => {
+        if (confirm("Are you sure you want to remove this Facebook post?")) {
+          fetch(`/api/admin/delete-facebook-post/${index}`, {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              if (result.success) {
+                location.reload();
+              } else {
+                showMessage(
+                  result.error || "Failed to delete Facebook post",
+                  "danger"
+                );
+              }
+            })
+            .catch((error) => {
+              showMessage("Error deleting Facebook post", "danger");
+            });
+        }
+      };
+
+      const showMessage = (text, type) => {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = `alert alert-${type} alert-dismissible fade show mt-3`;
+        messageDiv.role = "alert";
+        messageDiv.innerHTML = `${text}<button type="button" class="btn-close" data-bs-dismiss="alert"></button>`;
+
+        const existingMessage = document.querySelector(".alert");
+        if (existingMessage) existingMessage.remove();
+
+        const container = document.querySelector(".container");
+        container.insertBefore(messageDiv, container.firstChild);
+      };
+
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", (e) => {
+          e.preventDefault();
+          const target = document.querySelector(anchor.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth" });
+            const navbarCollapse = document.querySelector(".navbar-collapse");
+            if (navbarCollapse?.classList.contains("show")) {
+              const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+              bsCollapse.hide();
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

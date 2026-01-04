@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Professional mobile device services - activation, bypass, flashing, and customization"
+    />
+    <meta name="theme-color" content="#4361ee" />
+    <title><%= config.clientName %> | Professional Mobile Services</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #4361ee;
+        --secondary-color: #3f37c9;
+        --accent-color: #4cc9f0;
+        --light-color: #f8f9fa;
+        --dark-color: #212529;
+        --success-color: #4ade80;
+        --border-radius: 15px;
+        --shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.15);
+        --transition: all 0.3s ease;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--light-color);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 1rem;
+      }
+
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--secondary-color);
+        margin-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -0.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 5rem;
+        height: 0.25rem;
+        background: var(--accent-color);
+        border-radius: 0.125rem;
+      }
+
+      .navbar {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .navbar-brand,
+      .nav-link {
+        font-weight: 500;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.9) !important;
+        transition: var(--transition);
+      }
+
+      .nav-link:hover {
+        color: white !important;
+      }
+
+      .hero {
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 8rem 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .hero::before {
+        top: -3.125rem;
+        right: -3.125rem;
+        width: 18.75rem;
+        height: 18.75rem;
+      }
+
+      .hero::after {
+        bottom: -5rem;
+        left: -5rem;
+        width: 25rem;
+        height: 25rem;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 10;
+      }
+
+      .service-card,
+      .proof-item,
+      .contact-info-card {
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        height: 100%;
+      }
+
+      .service-card:hover,
+      .proof-item:hover {
+        transform: translateY(-0.625rem);
+        box-shadow: var(--shadow-hover);
+      }
+
+      .service-card {
+        padding: 1.875rem;
+      }
+
+      .service-icon {
+        width: 4.375rem;
+        height: 4.375rem;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        color: white;
+        font-size: 1.75rem;
+      }
+
+      .service-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.9375rem;
+        color: var(--secondary-color);
+      }
+
+      .proof-img {
+        width: 100%;
+        height: 15.625rem;
+        object-fit: cover;
+        border-bottom: 0.1875rem solid var(--accent-color);
+        border-top-left-radius: var(--border-radius);
+        border-top-right-radius: var(--border-radius);
+      }
+
+      .proof-content {
+        padding: 1.25rem;
+      }
+
+      .contact-info-card {
+        padding: 2.5rem;
+        text-align: center;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1.25rem;
+        justify-content: center;
+        margin-top: 1.875rem;
+      }
+
+      .social-link {
+        width: 3.75rem;
+        height: 3.75rem;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .social-link:hover {
+        transform: translateY(-0.1875rem) scale(1.05);
+        box-shadow: 0 0.5rem 1.25rem rgba(67, 97, 238, 0.4);
+        color: white;
+      }
+
+      .contact-detail {
+        background: var(--light-color);
+        padding: 1.25rem;
+        border-radius: 0.625rem;
+        margin: 0.9375rem 0;
+        border-left: 0.25rem solid var(--primary-color);
+      }
+
+      .contact-detail i {
+        color: var(--primary-color);
+        font-size: 1.5rem;
+        margin-right: 0.9375rem;
+      }
+
+      .footer {
+        background: var(--dark-color);
+        color: white;
+        padding: 2.5rem 0;
+        text-align: center;
+      }
+
+      .facebook-embed {
+        background: white;
+        border-radius: var(--border-radius);
+        padding: 1.875rem 1.25rem;
+        box-shadow: var(--shadow);
+        margin-top: 1.25rem;
+      }
+
+      .facebook-embed iframe {
+        border-radius: 0.625rem;
+        overflow: hidden;
+      }
+
+      #fb-posts-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .loading-skeleton {
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 1.5s ease-in-out infinite;
+        border-radius: 0.5rem;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      .animate-fade-in {
+        opacity: 0;
+        transform: translateY(1.875rem);
+        animation: fadeInUp 0.8s ease forwards;
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .delay-1 {
+        animation-delay: 0.1s;
+      }
+      .delay-2 {
+        animation-delay: 0.2s;
+      }
+      .delay-3 {
+        animation-delay: 0.3s;
+      }
+      .delay-4 {
+        animation-delay: 0.4s;
+      }
+      .delay-5 {
+        animation-delay: 0.5s;
+      }
+
+      .btn {
+        padding: 0.75rem 1.875rem;
+        border-radius: var(--border-radius);
+        font-weight: 600;
+        font-size: 1rem;
+        transition: var(--transition);
+      }
+
+      .btn-light {
+        background: white;
+        color: var(--primary-color);
+      }
+
+      .btn-light:hover {
+        background: #e9ecef;
+        transform: translateY(-0.125rem);
+      }
+
+      @media (max-width: 768px) {
+        .section {
+          padding: 3rem 0;
+        }
+        .section-title {
+          margin-bottom: 2rem;
+        }
+        .section-title h2 {
+          font-size: 2rem;
+        }
+        .hero {
+          padding: 3.75rem 0;
+          text-align: center;
+        }
+        .contact-info-card {
+          padding: 1.875rem;
+        }
+        .facebook-embed {
+          padding: 1rem;
+        }
+        .service-card,
+        .proof-item {
+          margin-bottom: 1.25rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .section {
+          padding: 2rem 0;
+        }
+        .section-title h2 {
+          font-size: 1.75rem;
+        }
+        .service-icon {
+          width: 3.75rem;
+          height: 3.75rem;
+          font-size: 1.5rem;
+        }
+        .service-card {
+          padding: 1.25rem;
+        }
+        .proof-content {
+          padding: 1rem;
+        }
+        .social-links {
+          flex-wrap: wrap;
+        }
+        .social-link {
+          margin-bottom: 0.625rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#home" id="navBrand"
+          ><%= config.clientName %></a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#proof">Proof</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-lg-6 animate-fade-in mb-4 mb-lg-0">
+              <h1 class="display-4 fw-bold mb-4">
+                Professional Mobile Device Services
+              </h1>
+              <p class="lead mb-4">
+                Expert solutions for device activation, bypass, flashing, and
+                customization. Fast, reliable, and trusted by hundreds of
+                clients.
+              </p>
+              <a href="#contact" class="btn btn-light btn-lg">Get Started</a>
+            </div>
+            <div class="col-lg-6 text-center d-none d-lg-block">
+              <img
+                src="https://placehold.co/500x400/4361ee/white?text=Mobile+Services"
+                alt="Mobile Services"
+                class="img-fluid rounded shadow"
+                style="border: 0.3125rem solid rgba(255, 255, 255, 0.2)"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Our Services</h2>
+            <p>Comprehensive mobile device solutions tailored to your needs</p>
+          </div>
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+              <div class="service-card animate-fade-in delay-1">
+                <div class="service-icon">
+                  <i class="fas fa-tools"></i>
+                </div>
+                <h3>Tools Activation & Rentals</h3>
+                <p>
+                  Professional activation tools and equipment available for rent
+                  or purchase. Latest software and hardware solutions.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="service-card animate-fade-in delay-2">
+                <div class="service-icon">
+                  <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>iCloud Bypass / FRP / MDM</h3>
+                <p>
+                  Reliable bypass solutions for iCloud, Factory Reset
+                  Protection, and Mobile Device Management locks.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="service-card animate-fade-in delay-3">
+                <div class="service-icon">
+                  <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Auth Flashing</h3>
+                <p>
+                  Authorized flashing services for various devices with genuine
+                  software and proper authentication.
+                </p>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="service-card animate-fade-in delay-4">
+                <div class="service-icon">
+                  <i class="fas fa-cogs"></i>
+                </div>
+                <h3>Rooting & Custom ROM</h3>
+                <p>
+                  Professional rooting and custom ROM installation for enhanced
+                  device performance and features.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="proof" class="section bg-light">
+        <div class="container">
+          <div class="section-title">
+            <h2>Proof of Legitimacy</h2>
+            <p>Real results from satisfied clients</p>
+          </div>
+          <div class="row g-4" id="proof-items-container">
+          </div>
+
+          <div class="mt-5">
+            <h3 class="mb-4 text-center">Follow Us on Facebook</h3>
+            <div class="facebook-embed">
+              <div id="fb-posts-container">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Get in touch for professional mobile device services</p>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              <div class="contact-info-card">
+                <h3 class="mb-4">Connect With Us</h3>
+                <p class="lead mb-4">
+                  Reach out through our social media or email for immediate
+                  assistance with your mobile device needs.
+                </p>
+
+                <div class="contact-detail">
+                  <i class="fas fa-envelope"></i>
+                  <strong>Email:</strong>
+                  <a href="mailto:<%= config.contactEmail %>" id="emailDisplay"
+                    ><%= config.contactEmail %></a
+                  >
+                </div>
+
+                <div class="social-links">
+                  <a
+                    href="<%= config.facebookLink %>"
+                    class="social-link"
+                    id="facebookLink"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Facebook"
+                  >
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a
+                    href="mailto:<%= config.contactEmail %>"
+                    class="social-link"
+                    id="emailLink"
+                    title="Email"
+                  >
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                </div>
+
+                <div class="mt-5">
+                  <p class="text-muted">
+                    <i class="fas fa-clock me-2"></i>
+                    We typically respond within 24 hours
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p id="footerText">
+          &copy; 2026 <%= config.clientName %>. All rights reserved.
+        </p>
+        <p class="mt-2">Professional Mobile Device Services</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const API_BASE = window.location.origin;
+
+      let config = {
+        clientName: "Tech Solutions Pro",
+        facebookLink: "https://www.facebook.com/techsolutionspro",
+        contactEmail: "contact@techsolutionspro.com",
+        facebookPosts: [],
+        proofItems: [],
+      };
+
+      async function loadConfig() {
+        try {
+          const response = await fetch(`${API_BASE}/api/config`);
+          const data = await response.json();
+          config = { ...config, ...data };
+          updateUI();
+          await loadFacebookPosts();
+        } catch (error) {
+          updateUI();
+        }
+      }
+
+      function updateUI() {
+        document.getElementById("navBrand").textContent = config.clientName;
+        document.getElementById("facebookLink").href = config.facebookLink;
+        document.getElementById(
+          "emailLink"
+        ).href = `mailto:${config.contactEmail}`;
+        document.getElementById(
+          "emailDisplay"
+        ).href = `mailto:${config.contactEmail}`;
+        document.getElementById("emailDisplay").textContent =
+          config.contactEmail;
+        document.getElementById(
+          "footerText"
+        ).innerHTML = `&copy; 2026 ${config.clientName}. All rights reserved.`;
+
+        updateProofItems();
+      }
+
+      function updateProofItems() {
+        const proofContainer = document.getElementById("proof-items-container");
+        if (
+          !proofContainer ||
+          !config.proofItems ||
+          config.proofItems.length === 0
+        ) {
+          proofContainer.innerHTML =
+            '<div class="text-center text-muted">No proof items available.</div>';
+          return;
+        }
+
+        proofContainer.innerHTML = "";
+
+        config.proofItems.forEach((item, index) => {
+          const colDiv = document.createElement("div");
+          colDiv.className = "col-md-6 col-lg-4";
+
+          colDiv.innerHTML = `
+                    <div class="proof-item animate-fade-in delay-${index % 3}">
+                        <img
+                            src="${item.image}"
+                            alt="${item.title}"
+                            class="proof-img"
+                        />
+                        <div class="proof-content">
+                            <h4>${item.title}</h4>
+                            <p>${item.testimonial}</p>
+                        </div>
+                    </div>
+                `;
+
+          proofContainer.appendChild(colDiv);
+        });
+      }
+
+      async function loadFacebookPosts() {
+        const container = document.getElementById("fb-posts-container");
+        if (!config.facebookPosts || config.facebookPosts.length === 0) {
+          container.innerHTML = `<p class="text-center text-muted">No Facebook posts configured.</p>`;
+          return;
+        }
+
+        container.innerHTML = '<div id="facebook-posts-list"></div>';
+        const listContainer = document.getElementById("facebook-posts-list");
+
+        for (const postUrl of config.facebookPosts) {
+          const postContainer = document.createElement("div");
+          postContainer.className = "mb-4";
+          listContainer.appendChild(postContainer);
+
+          postContainer.innerHTML = `
+                    <div class="loading-skeleton" style="
+                        width: 100%;
+                        max-width: 500px;
+                        height: 25rem;
+                        margin: 0 auto;
+                        border-radius: 0.625rem;
+                    "></div>
+                `;
+
+          const encodedUrl = encodeURIComponent(postUrl);
+
+          postContainer.innerHTML = `
+                    <div class="d-flex justify-content-center">
+                        <iframe 
+                            src="https://www.facebook.com/plugins/post.php?href=${encodedUrl}&show_text=true&width=500" 
+                            width="500" 
+                            height="709" 
+                            style="border:none;overflow:hidden;max-width:100%;"
+                            scrolling="no" 
+                            frameborder="0" 
+                            allowfullscreen="true" 
+                            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe>
+                    </div>
+                `;
+        }
+      }
+
+      function setupSmoothScrolling() {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({ behavior: "smooth" });
+              const navbarCollapse = document.querySelector(".navbar-collapse");
+              if (navbarCollapse && navbarCollapse.classList.contains("show")) {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                bsCollapse.hide();
+              }
+            }
+          });
+        });
+      }
+
+      async function init() {
+        await loadConfig();
+        setupSmoothScrolling();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    </script>
+  </body>
+</html>
